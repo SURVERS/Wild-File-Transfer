@@ -1,8 +1,7 @@
 ﻿# Wild File Transfer
 
 Wild File Transfer – это простой и быстрый способ передавать файлы, текст и медиа между устройствами в одной сети без облаков и посредников. Просто откройте страницу, нажмите «Получить», отсканируйте QR-код или перейдите по ссылке, затем добавьте файлы/текст и отправьте.
-<img width="522" height="649" alt="image" src="https://github.com/user-attachments/assets/96a585e9-a2d1-4a04-8d67-f8af34c2fe8b" />
-<img width="534" height="654" alt="image" src="https://github.com/user-attachments/assets/938eb449-651f-4c24-a01e-bc47b6a9ecb6" />
+<img width="522" height="649" alt="image" src="https://github.com/user-attachments/assets/96a585e9-a2d1-4a04-8d67-f8af34c2fe8b" /><img width="534" height="654" alt="image" src="https://github.com/user-attachments/assets/938eb449-651f-4c24-a01e-bc47b6a9ecb6" />
 
 ## Возможности
 - Локальная генерация QR-кода с ссылкой на текущую сессию для приема
