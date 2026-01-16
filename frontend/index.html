@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Wild File Transfer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    
+    <div class="main-card">
+      <header class="header">
+        <div class="logo-area">
+          <img src="images/logo.png" alt="Logo" />
+        </div>
+        <div class="titles">
+          <h1>Wild Transfer</h1>
+          <p>Wild File Transfer - удобный инструмент для быстрой передачи файлов, текста, видео и изображений между устройствами. Просто сканируйте QR-код, добавляйте нужные файлы и отправляйте их.</p>
+        </div>
+      </header>
+
+      <div class="tabs">
+        <button id="tabReceive" class="tab-btn active">ПОЛУЧИТЬ</button>
+        <button id="tabSend" class="tab-btn">ОТПРАВИТЬ</button>
+      </div>
+
+      <div class="content">
+        
+        <!-- === Вкладка ПОЛУЧИТЬ === -->
+        <div id="panelReceive" class="panel active">
+          
+          <!-- 1. Стартовый экран (Кнопка) -->
+          <div id="startScreen" class="start-screen">
+            <img id="qr-logo" src="images/qr-code.svg" alt="QR Code" />
+            <h3>Готов к приему файлов?</h3>
+            <p>Нажмите кнопку ниже, чтобы создать сессию и сгенерировать QR-код.</p>
+            <button id="btnCreateSession" class="action-btn primary-btn pulse">Создать сессию</button>
+          </div>
+
+          <!-- 2. Загрузка -->
+          <div id="loaderReceive" class="status-block hidden">
+            <div class="loader"></div>
+            <span>Создание комнаты...</span>
+          </div>
+          
+          <!-- 3. QR и Ожидание -->
+          <div id="qrBlock" class="qr-wrapper hidden">
+            <div class="qr-frame">
+              <img id="qrImage" src="" alt="QR Code" />
+            </div>
+            <div class="connection-status">
+              <div id="statusDot" class="status-dot"></div>
+              <span id="connectionText">Ожидание отправителя...</span>
+            </div>
+            <a id="shareLink" target="_blank" class="text-link">Ссылка для браузера</a>
+          </div>
+
+          <!-- 4. Успех (Файлы получены) -->
+          <div id="successBlock" class="hidden">
+            <div class="success-header">
+              <div class="icon-check">✔</div>
+              <h3>Данные успешно получены!</h3>
+            </div>
+
+            <!-- Блок с текстом (Стиль редактора) -->
+            <div id="receivedTextContainer" class="editor-window hidden">
+              <div class="editor-bar">
+                <span class="editor-title">Текстовое сообщение</span>
+                <button id="btnCopyText" class="editor-copy-btn">
+                  <span class="copy-icon">📋</span> Скопировать
+                </button>
+              </div>
+              <div class="editor-body">
+                <pre id="receivedText"></pre>
+              </div>
+            </div>
+
+            <!-- Список файлов (Карточки) -->
+            <ul id="receivedFileList" class="file-cards-list"></ul>
+            
+            <!-- Кнопки действий (Снизу) -->
+            <div class="bottom-actions">
+              <button id="btnDownloadAll" class="action-btn primary-btn hidden">
+                📥 Скачать всё (.zip)
+              </button>
+              
+              <button id="btnNewSession" class="action-btn ghost-btn">
+                🔄 Новая сессия
+              </button>
+              
+              <button id="btnDeleteFiles" class="action-btn danger-text-btn">
+                🗑 Удалить файлы с сервера
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- === Вкладка ОТПРАВИТЬ === -->
+        <div id="panelSend" class="panel">
+          
+          <!-- 1. Список устройств -->
+          <div id="discoveryInterface" class="discovery-container hidden">
+            <div class="discovery-header">
+              <h3>Активные получатели</h3>
+              <p>Кто сейчас ждет файлы в этой сети:</p>
+            </div>
+            <div id="sessionsList" class="sessions-list"></div>
+            <div id="noSessionsMsg" class="no-sessions hidden">
+              <p>Устройств не найдено</p>
+              <small>Нажмите "Создать сессию" на другом устройстве</small>
+            </div>
+          </div>
+
+          <!-- 2. Форма отправки (Drag & Drop) -->
+          <div id="uploadInterface" class="upload-container hidden">
+            
+            <div class="upload-header-row">
+              <button id="btnBack" class="back-link">← К списку</button>
+              <div class="session-tag">ID: <span id="sessionIdDisplay">...</span></div>
+            </div>
+
+            <!-- Зона файлов -->
+            <label id="dropZone" class="drop-zone">
+              <input type="file" id="fileInput" multiple />
+              <div class="drop-content">
+                <span class="icon-big">📂</span>
+                <span class="drop-title">Нажмите или перетащите</span>
+                <span class="drop-subtitle">для выбора файлов</span>
+              </div>
+            </label>
+
+            <!-- Список выбранных -->
+            <div id="uploadPreview" class="preview-list hidden"></div>
+
+            <!-- Текст -->
+            <textarea id="textInput" placeholder="Добавить текстовое сообщение..."></textarea>
+
+            <!-- Кнопка -->
+            <button id="btnSend" class="action-btn primary-btn" disabled>ОТПРАВИТЬ ДАННЫЕ</button>
+            
+            <div id="sendLoader" class="status-block hidden">
+              <div class="loader small"></div>
+              <span>Загрузка на сервер...</span>
+            </div>
+          </div>
+
+        </div>
+        <ul class="social-icons">
+          <li><a class="social-icon-telegram" href="https://t.me/survers_team" title="Перейти :3" target="_blank" rel="noopener"></a></li>
+          <li><a class="social-icon-github" href="https://github.com/SURVERS" title="Перейти :3" target="_blank" rel="noopener"></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
